@@ -1,0 +1,56 @@
+#!/usr/bin/env node
+
+// npm i levelup
+var levelup = require("levelup");
+
+var path = process.argv[2];
+
+if (!path) {
+    console.log("try `./export /path/to/your/leveldb`");
+    process.exit();
+}
+
+var db = levelup(path);
+
+var fs = require("fs");
+
+/* CHAN|CONTENT\n */
+
+var channels = { };
+
+var done = function () {
+    var channelCount = Object.keys(channels).length;
+    Object.keys(channels).forEach(function (id) {
+        channels[id].forEach(function(msg) {
+            try { JSON.parse(msg); }
+            catch (err) { return; }
+            console.log([id, msg].join('|'));
+        });
+    });
+};
+
+db.createReadStream()
+    .on('data', function (data, i) {
+        var k = data.key;
+        var v = data.value;
+
+        var parts = k.split('=>');
+
+        try { JSON.parse(v); }
+        catch (err) {
+            console.error(err);
+            throw err;
+        }
+
+        if (k.length < 2) { return console.log(parts); }
+        var channel = parts[0];
+        var meaning = parts[1];
+        if (meaning === 'index') { return; }
+
+        var messages = channels[channel] = channels[channel] || [];
+        messages[meaning] = v;
+    })
+    .on('error', function (e) { console.error(e); })
+    .on('close', function () { })
+    .on('end',done);
+

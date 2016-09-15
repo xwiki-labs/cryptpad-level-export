@@ -1,0 +1,26 @@
+{
+  "name": "cryptpad-level-export",
+  "version": "1.0.0",
+  "description": "Export your Cryptpad leveldb instance to a common format",
+  "main": "export",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/xwiki-labs/cryptpad-level-export.git"
+  },
+  "keywords": [
+    "leveldb",
+    "cryptpad"
+  ],
+  "author": "ansuz",
+  "license": "AGPL-3.0",
+  "bugs": {
+    "url": "https://github.com/xwiki-labs/cryptpad-level-export/issues"
+  },
+  "homepage": "https://github.com/xwiki-labs/cryptpad-level-export#readme",
+  "dependencies": {
+    "levelup": "^1.3.2"
+  }
+}
