@@ -15,7 +15,19 @@ If you've installed Cryptpad and would like to migrate the data in your leveldb,
 ## Usage
 
 ```Bash
-./export /path/to/your/leveldb
+# turn off your cryptpad instance
+
+# write your current database to a file
+./export /path/to/your/leveldb > cryptpad-level.dump;
+
+# edit your cryptpad/config.js to use the new filestore
+
+# then use cryptpad/import
+cd ~/path/to/cryptpad;
+
+./import /path/to/cryptpad-level.dump;
+
+# Launch cryptpad and confirm that your data is available within the new database
 ```
 
 ## License
