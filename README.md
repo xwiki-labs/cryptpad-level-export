@@ -2,7 +2,7 @@
 
 ## Status
 
-Maintained.
+Maintained. Not thoroughly tested.
 
 ## Why?
 
